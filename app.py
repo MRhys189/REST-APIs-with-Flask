@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 
 app = Flask(__name__)  # to tell that Flask is running
 # creates app called Flask with a unique name
@@ -30,9 +30,9 @@ def get_store(name):
     pass
 
 # GET/store/
-@app.route('/store/name', methods=['GET'])
+@app.route('/store', methods=['GET'])
 def get_stores():
-    pass
+    return jsonify({'stores': stores})
 
 # POST/store/<string:name>/item {name:, price:}
 @app.route('/store/<string:name>/item', methods=['POST'])
