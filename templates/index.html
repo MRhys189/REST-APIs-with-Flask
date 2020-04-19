@@ -11,9 +11,8 @@
 			xmlHttp.open("GET", theUrl, true); // true for asynchronous
 			xmlHttp.send(null);
 		}
-
-		httpGetAsync('http://http://127.0.0.1:5000/store', function(response)
-		{
+		// js function that creates the get request
+		httpGetAsync('http://127.0.0.1:5000/store', function (response) {
 			alert(response);
 		})
 	</script>

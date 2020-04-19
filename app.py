@@ -35,12 +35,13 @@ def create_store(request_data, new_store: dict):
 
 
 # GET/store/<string:name>
-# get a store for a given name and return some data
+# get a specific store  and return some data
 @app.route('/store/name/<string:name>')
-def get_store(name_of_store):
+def get_store(name):
     for store in stores:  # Iterate over stores
-        if name_of_store == store['name']:
-            return jsonify(store)  # If the store name matches, return it
+        if store['name'] == name:
+            # If the store name matches, return it
+            return jsonify(store)
     # If none match, return an error message
     return jsonify({'message': 'Store not found'})
 
