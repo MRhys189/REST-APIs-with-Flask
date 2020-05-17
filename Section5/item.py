@@ -40,7 +40,16 @@ class Item(Resource):
         data = Item.parser.parse_args()
 
         item = {'name': name, 'price': data['price']}
+        
+        try:
+            self.insert(item)
+        except:
+            return {'message':'An error occured when inserting the item'},500 #internal server error
 
+        return item, 201
+    
+    @classmethod
+    def insert(cls,item):
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
 
@@ -50,7 +59,6 @@ class Item(Resource):
         connection.commit()
         connection.close()
 
-        return item, 201
 
     @jwt_required()
     def delete(self, name):
