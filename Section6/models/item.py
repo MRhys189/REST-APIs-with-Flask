@@ -1,7 +1,15 @@
 import sqlite3
+from db import db
 
 
-class ItemModel:
+class ItemModel(db.Model):
+    __tablename__ = 'items'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80))
+    price = db.Column(db.Float(precision=2))
+
+
     def __init__(self, name, price):
         self.name = name
         self.price = price
@@ -27,7 +35,7 @@ class ItemModel:
         cursor = connection.cursor()
 
         query = 'INSERT INTO items VALUES (?,?)'
-        cursor.execute(query, self.name, self.price)
+        cursor.execute(query, (self.name, self.price))
 
         connection.commit()
         connection.close()
