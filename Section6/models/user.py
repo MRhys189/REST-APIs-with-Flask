@@ -1,4 +1,3 @@
-import sqlite3
 from db import db
 
 class UserModel(db.Model):
@@ -15,7 +14,7 @@ class UserModel(db.Model):
 
     def save_to_db(self):
         db.session.add(self)
-        db.commit()
+        db.session.commit()
 
     @classmethod
     def find_by_username(cls, username):
@@ -23,5 +22,5 @@ class UserModel(db.Model):
 
     @classmethod
     def find_by_id(cls, _id):
-        return cls.query.filter_by(id=id).first()
+        return cls.query.filter_by(id=_id).first()
         

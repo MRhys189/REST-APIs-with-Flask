@@ -11,7 +11,6 @@ class Item(Resource):
                         help="This field cannot be left blank!"
                         )
 
-    parser = reqparse.RequestParser()
     parser.add_argument('store_id',
                         type=int,
                         required=True,
@@ -48,8 +47,9 @@ class Item(Resource):
         item = ItemModel.find_by_name(name)
         if item:
             item.delete_from_db()
+            return {'message': 'Item deleted'}
+        return {'message': 'Item not found.'}, 404
 
-        return {'message': 'Item deleted'}
 
     @jwt_required()
     def put(self, name):
@@ -58,10 +58,10 @@ class Item(Resource):
 
         item = ItemModel.find_by_name(name)
         
-        if item is None:
-            item = ItemModel(name, **data)
-        else:
+        if item:
             item.price = data['price']
+        else:
+            item = ItemModel(name, **data)
         
         item.save_to_db()
 
