@@ -5,7 +5,7 @@ from flask_jwt import JWT, jwt_required, current_identity
 from security import authenticate, identity
 from resources.user import UserRegister
 from resources.item import ItemList,Item
-from flask_sqlalchemy import SQLAlchemy
+from resources.store import Store, StoreList
 
 
 
@@ -27,8 +27,10 @@ def create_tables():
 jwt = JWT(app, authenticate, identity)
  
 
+api.add_resource(Store, '/store/<string:name>')
 api.add_resource(Item, '/item/<string:name>')
 api.add_resource(ItemList, '/items')
+api.add_resource(StoreList, '/stores ')
 api.add_resource(UserRegister, '/register')
 
 if __name__ == '__main__': 
